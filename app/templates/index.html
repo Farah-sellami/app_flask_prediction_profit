@@ -3,35 +3,77 @@
 <head>
     <title>Startup Profit Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function toggleInputs() {
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+
+            const rd = document.getElementById("rd_spend");
+            const admin = document.getElementById("administration");
+            const marketing = document.getElementById("marketing_spend");
+            const state = document.getElementById("state");
+
+            if (mode === "full") {
+                rd.required = true;
+                admin.required = true;
+                marketing.required = true;
+                state.required = true;
+
+                admin.disabled = false;
+                marketing.disabled = false;
+                state.disabled = false;
+            } else {
+                rd.required = true;
+                admin.required = false;
+                marketing.required = false;
+                state.required = false;
+
+                admin.disabled = true;
+                marketing.disabled = true;
+                state.disabled = true;
+
+                admin.value = "";
+                marketing.value = "";
+            }
+        }
+    </script>
 </head>
-<body>
+<body onload="toggleInputs()">
 
 <h2>Prediction du Profit</h2>
 
 <form method="POST">
+
+    <!-- Radio buttons -->
+    <label>
+        <input type="radio" name="mode" value="full" checked onclick="toggleInputs()">
+        Toutes les variables
+    </label>
+
+    <label>
+        <input type="radio" name="mode" value="rd" onclick="toggleInputs()">
+        R&D seulement
+    </label>
+
+    <br><br>
+
     <label>R&D Spend</label>
-    <input type="number" step="any" name="rd_spend" >
+    <input type="number" step="any" name="rd_spend" id="rd_spend">
 
     <label>Administration</label>
-    <input type="number" step="any" name="administration" >
+    <input type="number" step="any" name="administration" id="administration">
 
     <label>Marketing Spend</label>
-    <input type="number" step="any" name="marketing_spend" >
+    <input type="number" step="any" name="marketing_spend" id="marketing_spend">
 
     <label>State</label>
-    <select name="state">
+    <select name="state" id="state">
         <option value="New York">New York</option>
         <option value="California">California</option>
         <option value="Florida">Florida</option>
     </select>
 
-    <button type="submit" name="action" value="full">Prédire (toutes les variables)</button>
-<!-- bouton R&D seulement -->
-    <button type="submit" name="action" value="rd">
-        Prédire avec R&D seulement
-    </button>
+    <button type="submit">Prédire</button>
 </form>
-
 
 {% if prediction is not none %}
     <div class="result">

@@ -15,11 +15,11 @@ def index():
     prediction = None
 
     if request.method == "POST":
-        action = request.form["action"]
+        mode = request.form.get("mode")   # full ou rd
         rd = float(request.form["rd_spend"])
 
         # ---------- CAS 1 : R&D seulement ----------
-        if action == "rd":
+        if mode == "rd":
             X = pd.DataFrame([[rd]], columns=['R&D Spend'])
             prediction = reg1.predict(X)[0]
 
@@ -29,10 +29,8 @@ def index():
             marketing = float(request.form["marketing_spend"])
             state = request.form["state"]
 
-            ligne = [rd, admin, marketing, state]
-
             ligne_df = pd.DataFrame(
-                [ligne],
+                [[rd, admin, marketing, state]],
                 columns=['R&D Spend', 'Administration', 'Marketing Spend', 'State']
             )
 
