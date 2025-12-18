@@ -5,7 +5,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
+    
+<p>Connecté en tant que {{ user }}</p>
+<a href="{{ url_for('main.logout') }}">Logout</a>
 <h2>Prediction du Profit</h2>
 
 <form method="POST">
