@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Startup Profit Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h2>Prediction du Profit</h2>
+
+<form method="POST">
+    <label>R&D Spend</label>
+    <input type="number" step="any" name="rd_spend" required>
+
+    <label>Administration</label>
+    <input type="number" step="any" name="administration" required>
+
+    <label>Marketing Spend</label>
+    <input type="number" step="any" name="marketing_spend" required>
+
+    <label>State</label>
+    <select name="state" required>
+        <option value="New York">New York</option>
+        <option value="California">California</option>
+        <option value="Florida">Florida</option>
+    </select>
+
+    <button type="submit">Prédire</button>
+</form>
+
+{% if prediction is not none %}
+    <div class="result">
+        <h3>Le profit estimé est :</h3>
+        <h2>{{ "%.2f"|format(prediction) }}</h2>
+    </div>
+{% endif %}
+
+</body>
+</html>
