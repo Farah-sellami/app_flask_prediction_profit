@@ -10,23 +10,28 @@
 
 <form method="POST">
     <label>R&D Spend</label>
-    <input type="number" step="any" name="rd_spend" required>
+    <input type="number" step="any" name="rd_spend" >
 
     <label>Administration</label>
-    <input type="number" step="any" name="administration" required>
+    <input type="number" step="any" name="administration" >
 
     <label>Marketing Spend</label>
-    <input type="number" step="any" name="marketing_spend" required>
+    <input type="number" step="any" name="marketing_spend" >
 
     <label>State</label>
-    <select name="state" required>
+    <select name="state">
         <option value="New York">New York</option>
         <option value="California">California</option>
         <option value="Florida">Florida</option>
     </select>
 
-    <button type="submit">Prédire</button>
+    <button type="submit" name="action" value="full">Prédire (toutes les variables)</button>
+<!-- bouton R&D seulement -->
+    <button type="submit" name="action" value="rd">
+        Prédire avec R&D seulement
+    </button>
 </form>
+
 
 {% if prediction is not none %}
     <div class="result">
